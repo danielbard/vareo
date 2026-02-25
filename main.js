@@ -275,6 +275,7 @@ function initTabSystem() {
           activeContent = incomingContent;
           activeVisual = incomingVisual;
           isAnimating = false;
+          gsap.set(incomingContent.querySelector('[data-tabs="item-details"]'), { clearProps: "height" });
           if (autoplay) startProgressBar(index);
         },
       });
