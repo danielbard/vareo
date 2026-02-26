@@ -222,7 +222,7 @@ function initFooterParallax() {
 }
 
 /* -----------------------------
-   headline reveal (GSAP + ScrollTrigger + SpliText)
+   headline reveal (GSAP + ScrollTrigger + SplitText)
 ----------------------------- */
 function initHighlightMarkerTextReveal() {
   const defaults = {
@@ -327,7 +327,7 @@ function initHighlightMarkerTextReveal() {
         const tl = gsap.timeline({ paused: true });
 
         lines.forEach((line, i) => {
-          gsap.set(line, { position: "relative", overflow: "hidden" });
+          gsap.set(line, { position: "relative", overflow: "visible" });
 
           const bar = createBar(color, dirConfig.origin);
           line.appendChild(bar);
