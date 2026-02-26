@@ -220,90 +220,147 @@ function initFooterParallax() {
 }
 
 /* -----------------------------
-   Tabs Autoplay (GSAP)
+   Highlight Marker Text Reveal (GSAP + SplitText + ScrollTrigger)
 ----------------------------- */
-function initTabSystem() {
-  const wrappers = document.querySelectorAll('[data-tabs="wrapper"]');
+function initHighlightMarkerTextReveal() {
+  const defaults = {
+    direction: "right",
+    theme: "pink",
+    scrollStart: "top 90%",
+    staggerStart: "start",
+    stagger: 100,
+    barDuration: 0.6,
+    barEase: "power3.inOut",
+  };
 
-  wrappers.forEach((wrapper) => {
-    const contentItems = wrapper.querySelectorAll('[data-tabs="content-item"]');
-    const visualItems = wrapper.querySelectorAll('[data-tabs="visual-item"]');
+  const colorMap = {
+    pink: "#C700EF",
+    white: "#FFFFFF",
+  };
 
-    if (!contentItems.length || !visualItems.length) return;
+  const directionMap = {
+    right: { prop: "scaleX", origin: "right center" },
+    left: { prop: "scaleX", origin: "left center" },
+    up: { prop: "scaleY", origin: "center top" },
+    down: { prop: "scaleY", origin: "center bottom" },
+  };
 
-    const autoplay = wrapper.dataset.tabsAutoplay === "true";
-    const autoplayDuration = parseInt(wrapper.dataset.tabsAutoplayDuration, 10) || 5000;
-
-    let activeContent = null;
-    let activeVisual = null;
-    let isAnimating = false;
-    let progressBarTween = null;
-
-    function startProgressBar(index) {
-      if (progressBarTween) progressBarTween.kill();
-      const bar = contentItems[index].querySelector('[data-tabs="item-progress"]');
-      if (!bar) return;
-
-      gsap.set(bar, { scaleX: 0, transformOrigin: "left center" });
-      progressBarTween = gsap.to(bar, {
-        scaleX: 1,
-        duration: autoplayDuration / 1000,
-        ease: "power1.inOut",
-        onComplete: () => {
-          if (!isAnimating) switchTab((index + 1) % contentItems.length);
-        },
-      });
+  function resolveColor(value) {
+    if (colorMap[value]) return colorMap[value];
+    if (value.startsWith("--")) {
+      return getComputedStyle(document.body).getPropertyValue(value).trim() || value;
     }
+    return value;
+  }
 
-    function switchTab(index) {
-      if (isAnimating || contentItems[index] === activeContent) return;
+  function createBar(color, origin) {
+    const bar = document.createElement("div");
+    bar.className = "highlight-marker-bar";
+    Object.assign(bar.style, {
+      backgroundColor: color,
+      transformOrigin: origin,
+    });
+    return bar;
+  }
 
-      isAnimating = true;
-      if (progressBarTween) progressBarTween.kill();
+  function cleanupElement(el) {
+    if (!el._highlightMarkerReveal) return;
+    el._highlightMarkerReveal.timeline?.kill();
+    el._highlightMarkerReveal.scrollTrigger?.kill();
+    el._highlightMarkerReveal.split?.revert();
+    el.querySelectorAll(".highlight-marker-bar").forEach((bar) => bar.remove());
+    delete el._highlightMarkerReveal;
+  }
 
-      const outgoingContent = activeContent;
-      const outgoingVisual = activeVisual;
-      const outgoingBar = outgoingContent?.querySelector('[data-tabs="item-progress"]');
+  let reduceMotion = false;
 
-      const incomingContent = contentItems[index];
-      const incomingVisual = visualItems[index];
-      const incomingBar = incomingContent.querySelector('[data-tabs="item-progress"]');
-
-      const tl = gsap.timeline({
-        defaults: { duration: 0.65, ease: "power3" },
-        onComplete: () => {
-          activeContent = incomingContent;
-          activeVisual = incomingVisual;
-          isAnimating = false;
-          gsap.set(incomingContent.querySelector('[data-tabs="item-details"]'), { clearProps: "height" });
-          if (autoplay) startProgressBar(index);
-        },
-      });
-
-      if (outgoingContent) {
-        tl.set(outgoingBar, { transformOrigin: "right center" })
-          .to(outgoingBar, { scaleX: 0, duration: 0.3 }, 0)
-          .to(outgoingVisual, { autoAlpha: 0, xPercent: 3 }, 0)
-          .to(outgoingContent.querySelector('[data-tabs="item-details"]'), { height: 0 }, 0);
-      }
-
-      tl.fromTo(incomingVisual, { autoAlpha: 0, xPercent: 3 }, { autoAlpha: 1, xPercent: 0 }, 0.3)
-        .fromTo(incomingContent.querySelector('[data-tabs="item-details"]'), { height: 0 }, { height: "auto" }, 0)
-        .set(incomingBar, { scaleX: 0, transformOrigin: "left center" }, 0);
-
-      incomingContent.classList.add("active");
-      incomingVisual.classList.add("active");
-      outgoingContent?.classList.remove("active");
-      outgoingVisual?.classList.remove("active");
+  gsap.matchMedia().add(
+    { reduce: "(prefers-reduced-motion: reduce)" },
+    (context) => {
+      reduceMotion = context.conditions.reduce;
     }
+  );
 
-    switchTab(0);
+  // Reduced motion: no animation at all
+  if (reduceMotion) {
+    document.querySelectorAll("[data-highlight-marker-reveal]").forEach((el) => {
+      gsap.set(el, { autoAlpha: 1 });
+    });
+    return;
+  }
 
-    contentItems.forEach((item, i) =>
-      item.addEventListener("click", () => {
-        if (item === activeContent) return;
-        switchTab(i);
-      })
-    );
+  // Cleanup previous instances
+  document.querySelectorAll("[data-highlight-marker-reveal]").forEach(cleanupElement);
+
+  const elements = document.querySelectorAll("[data-highlight-marker-reveal]");
+  if (!elements.length) return;
+
+  elements.forEach((el) => {
+    const direction = el.getAttribute("data-marker-direction") || defaults.direction;
+    const theme = el.getAttribute("data-marker-theme") || defaults.theme;
+    const scrollStart = el.getAttribute("data-marker-scroll-start") || defaults.scrollStart;
+    const staggerStart = el.getAttribute("data-marker-stagger-start") || defaults.staggerStart;
+    const staggerOffset = (parseFloat(el.getAttribute("data-marker-stagger")) || defaults.stagger) / 1000;
+
+    const color = resolveColor(theme);
+    const dirConfig = directionMap[direction] || directionMap.right;
+
+    el._highlightMarkerReveal = {};
+
+    const split = SplitText.create(el, {
+      type: "lines",
+      linesClass: "highlight-marker-line",
+      autoSplit: true,
+      onSplit(self) {
+        const instance = el._highlightMarkerReveal;
+
+        // Teardown previous build
+        instance.timeline?.kill();
+        instance.scrollTrigger?.kill();
+        el.querySelectorAll(".highlight-marker-bar").forEach((bar) => bar.remove());
+
+        // Build bars and timeline
+        const lines = self.lines;
+        const tl = gsap.timeline({ paused: true });
+
+        lines.forEach((line, i) => {
+          gsap.set(line, { position: "relative", overflow: "hidden" });
+
+          const bar = createBar(color, dirConfig.origin);
+          line.appendChild(bar);
+
+          const staggerIndex = staggerStart === "end" ? lines.length - 1 - i : i;
+
+          tl.to(bar, {
+            [dirConfig.prop]: 0,
+            duration: defaults.barDuration,
+            ease: defaults.barEase,
+          }, staggerIndex * staggerOffset);
+        });
+
+        // Reveal parent — bars are covering the text
+        gsap.set(el, { autoAlpha: 1 });
+
+        // ScrollTrigger
+        const st = ScrollTrigger.create({
+          trigger: el,
+          start: scrollStart,
+          once: true,
+          onEnter: () => tl.play(),
+        });
+
+        instance.timeline = tl;
+        instance.scrollTrigger = st;
+      },
+    });
+
+    el._highlightMarkerReveal.split = split;
   });
 }
+
+// Initialize Highlight Marker Text Reveal
+document.addEventListener("DOMContentLoaded", () => {
+  document.fonts.ready.then(() => {
+    initHighlightMarkerTextReveal();
+  });
+});
