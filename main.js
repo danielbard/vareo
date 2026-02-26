@@ -23,7 +23,6 @@ function init() {
 
     initVariableFontWeightHover();
     initFooterParallax();
-    initTabSystem();
     document.fonts.ready.then(() => {
       initHighlightMarkerTextReveal();
     });
