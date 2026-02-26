@@ -221,7 +221,7 @@ function initFooterParallax() {
 
 /* -----------------------------
    Highlight Marker Text Reveal (GSAP + SplitText + ScrollTrigger)
------------------------------ */
+----------------------------- 
 function initHighlightMarkerTextReveal() {
   const defaults = {
     direction: "right",
@@ -235,6 +235,7 @@ function initHighlightMarkerTextReveal() {
 
   const colorMap = {
     pink: "#C700EF",
+    orange: "#EC5B19"
     white: "#FFFFFF",
   };
 
@@ -364,3 +365,4 @@ document.addEventListener("DOMContentLoaded", () => {
     initHighlightMarkerTextReveal();
   });
 });
+*/
