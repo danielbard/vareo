@@ -24,6 +24,9 @@ function init() {
     initVariableFontWeightHover();
     initFooterParallax();
     initTabSystem();
+    document.fonts.ready.then(() => {
+      initHighlightMarkerTextReveal();
+    });
   });
 }
 
@@ -359,9 +362,3 @@ function initHighlightMarkerTextReveal() {
   });
 }
 
-// Initialize Highlight Marker Text Reveal
-document.addEventListener("DOMContentLoaded", () => {
-  document.fonts.ready.then(() => {
-    initHighlightMarkerTextReveal();
-  });
-});
