@@ -25,6 +25,7 @@ function init() {
     initFooterParallax();
     document.fonts.ready.then(() => {
       initHighlightMarkerTextReveal();
+      initLineRevealTestimonials();
     });
   });
 }
@@ -638,7 +639,3 @@ function initLineRevealTestimonials() {
   });
 }
 
-// Initialize Line Reveal Testimonials
-document.addEventListener("DOMContentLoaded", () => {
-  initLineRevealTestimonials();
-});
