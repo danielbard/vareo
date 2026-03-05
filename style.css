@@ -6,7 +6,7 @@
 .btn .btn__circle {
   transition: transform 0.7s cubic-bezier(0.625, 0.05, 0, 1), background-color 0.4s cubic-bezier(0.625, 0.05, 0, 1);
   transform: translate(-50%, -50%) scale(0) rotate(0.001deg);
-  background-color: #A6441D;
+  background-color: var(--_primitives---colors--primary-500);
 }
 
 .btn:hover .btn__circle {
@@ -15,36 +15,36 @@
 
 /* Dark */
 .btn[data-theme="dark"] .btn__circle {
-  background-color: #A6441D;
+  background-color: var(--_primitives---colors--primary-1000);
 }
 
 .btn[data-theme="dark"]:hover .btn__text {
-  color: #FFFFFF;
+  color: var(--_primitives---colors--white);
 }
 
 /* Light */
 .btn[data-theme="light"] .btn__bg {
-  background-color: #EFEDE3
+  background-color: var(--_primitives---colors--primary-300)
 }
 
 .btn[data-theme="light"] .btn__text {
-  color: #031819;
+  color: var(--_primitives---colors--cool-grey-1000);
 }
 
 .btn[data-theme="light"] .btn__circle {
-  background-color: #9FCCC8;
+  background-color: var(--_primitives---colors--primary-400);
 }
 
 /* Primary */
 .btn[data-theme="primary"] .btn__bg {
-  background-color: #EC5B19;
+  background-color: var(--_primitives---colors--primary-500);
 }
 
 .btn[data-theme="primary"] .btn__text {
-  color: #FFFFFF;
+  color: var(--_primitives---colors--white);
 }
 
 .btn[data-theme="primary"] .btn__circle {
-  background-color: #A6441D;
+  background-color: var(--_primitives---colors--primary-700);
 }
 </style>
