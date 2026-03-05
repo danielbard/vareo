@@ -13,6 +13,7 @@ function waitForGsap(cb, tries = 80) {
 function init() {
   // Runs immediately after DOM is ready
   initTwostepScalingNavigation();
+  initDirectionalButtonHover();
 
   // Runs only when GSAP + plugins are present
   waitForGsap(() => {
@@ -109,10 +110,6 @@ function initDirectionalButtonHover() {
   }
 }
 
-// Initialize Directional Button Hover
-document.addEventListener('DOMContentLoaded', function() {
-  initDirectionalButtonHover();
-});
 
 
 /* -----------------------------
