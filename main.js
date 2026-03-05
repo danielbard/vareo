@@ -70,6 +70,8 @@ function initTwostepScalingNavigation() {
    Directional Button Hover
 ----------------------------- */
 function initDirectionalButtonHover() {
+  if (window.matchMedia('(hover: none)').matches) return;
+
   // Button hover animation
   document.querySelectorAll('[data-btn-hover]').forEach(button => {
     button.addEventListener('mouseenter', handleHover);
