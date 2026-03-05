@@ -6,7 +6,7 @@
 .btn .btn__circle {
   transition: transform 0.7s cubic-bezier(0.625, 0.05, 0, 1), background-color 0.4s cubic-bezier(0.625, 0.05, 0, 1);
   transform: translate(-50%, -50%) scale(0) rotate(0.001deg);
-  background-color: #D1FD88;
+  background-color: #A6441D;
 }
 
 .btn:hover .btn__circle {
@@ -15,11 +15,11 @@
 
 /* Dark */
 .btn[data-theme="dark"] .btn__circle {
-  background-color: #D1FD88;
+  background-color: #A6441D;
 }
 
 .btn[data-theme="dark"]:hover .btn__text {
-  color: #031819;
+  color: #FFFFFF;
 }
 
 /* Light */
@@ -37,14 +37,14 @@
 
 /* Primary */
 .btn[data-theme="primary"] .btn__bg {
-  background-color: #D1FD88;
+  background-color: #EC5B19;
 }
 
 .btn[data-theme="primary"] .btn__text {
-  color: #031819;
+  color: #FFFFFF;
 }
 
 .btn[data-theme="primary"] .btn__circle {
-  background-color: #b8ec6f;
+  background-color: #A6441D;
 }
 </style>
