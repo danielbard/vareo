@@ -80,34 +80,27 @@ function initDirectionalButtonHover() {
     const button = event.currentTarget;
     const buttonRect = button.getBoundingClientRect();
 
-    // Get the button's dimensions and center
     const buttonWidth = buttonRect.width;
-    const buttonHeight = buttonRect.height;
-    const buttonCenterX = buttonRect.left + buttonWidth / 2;
-    const buttonCenterY = buttonRect.top + buttonHeight / 2;
-
-    // Calculate mouse position
     const mouseX = event.clientX;
     const mouseY = event.clientY;
 
-    // Offset from the top-left corner in percentage
+    // Position of circle center as % of button dimensions
     const offsetXFromLeft = ((mouseX - buttonRect.left) / buttonWidth) * 100;
-    const offsetYFromTop = ((mouseY - buttonRect.top) / buttonHeight) * 100;
+    const offsetYFromTop = ((mouseY - buttonRect.top) / buttonRect.height) * 100;
 
-    // Offset from the center in percentage
-    let offsetXFromCenter = ((mouseX - buttonCenterX) / (buttonWidth / 2)) * 50;
+    // Max distance from mouse to any corner → minimum required radius
+    const dx = Math.max(mouseX - buttonRect.left, buttonRect.right - mouseX);
+    const dy = Math.max(mouseY - buttonRect.top, buttonRect.bottom - mouseY);
+    const maxDist = Math.sqrt(dx * dx + dy * dy);
 
-    // Convert to absolute values
-    offsetXFromCenter = Math.abs(offsetXFromCenter);
+    // Diameter as % of button width, with 5% buffer
+    const sizePercent = (maxDist * 2 / buttonWidth) * 100 * 1.05;
 
-    // Update position and size of .btn__circle
     const circle = button.querySelector('.btn__circle');
     if (circle) {
-      const size = `${115 + offsetXFromCenter.toFixed(1) * 2}%`;
       circle.style.left = `${offsetXFromLeft.toFixed(1)}%`;
       circle.style.top = `${offsetYFromTop.toFixed(1)}%`;
-      circle.style.width = size;
-      circle.style.height = size;
+      circle.style.width = `${sizePercent.toFixed(1)}%`;
     }
   }
 }
