@@ -12,7 +12,7 @@
 
 .btn:hover .btn__circle {
   transform: translate(-50%, -50%) scale(1) rotate(0.001deg);
-  border-radius: none;
+  border-radius: 0;
 }
 
 /* Dark */
