@@ -103,9 +103,11 @@ function initDirectionalButtonHover() {
     // Update position and size of .btn__circle
     const circle = button.querySelector('.btn__circle');
     if (circle) {
+      const size = `${115 + offsetXFromCenter.toFixed(1) * 2}%`;
       circle.style.left = `${offsetXFromLeft.toFixed(1)}%`;
       circle.style.top = `${offsetYFromTop.toFixed(1)}%`;
-      circle.style.width = `${115 + offsetXFromCenter.toFixed(1) * 2}%`;
+      circle.style.width = size;
+      circle.style.height = size;
     }
   }
 }
