@@ -17,7 +17,7 @@
 
 /* Dark */
 .btn[data-theme="dark"] .btn__bg {
-  background-color: var(--_primitives---colors--cool-grey-900);
+  background-color: var(--_primitives---colors--cool-grey-800);
 }
 
 .btn[data-theme="dark"] .btn__circle {
