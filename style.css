@@ -126,8 +126,15 @@
   pointer-events: none;
 }
 
-[data-whatsapp-modal-trigger],
+[data-whatsapp-modal-trigger] {
+  pointer-events: auto;
+}
+
 [data-whatsapp-modal] {
+  pointer-events: none;
+}
+
+[data-whatsapp-modal-status="active"] {
   pointer-events: auto;
 }
 
