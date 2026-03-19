@@ -170,7 +170,13 @@
   visibility: visible;
 }
 
-/* Hide link on non-touch devices */
+/* Desktop: toggle visible, link hidden */
+[data-whatsapp-modal-trigger] [data-whatsapp-modal-toggle],
+[data-whatsapp-modal-btn] [data-whatsapp-modal-toggle] {
+  display: block;
+}
+
+[data-whatsapp-modal-trigger] [data-whatsapp-modal-link],
 [data-whatsapp-modal-btn] [data-whatsapp-modal-link] {
   display: none;
 }
@@ -182,12 +188,14 @@
   }
   
   /* Hide toggle button on touch devices */
-  [data-whatsapp-modal-trigger] [data-whatsapp-modal-toggle] {
+  [data-whatsapp-modal-trigger] [data-whatsapp-modal-toggle],
+  [data-whatsapp-modal-btn] [data-whatsapp-modal-toggle] {
     display: none;
   }
 
   /* Show link on touch devices */
-  [data-whatsapp-modal-trigger] [data-whatsapp-modal-link] {
+  [data-whatsapp-modal-trigger] [data-whatsapp-modal-link],
+  [data-whatsapp-modal-btn] [data-whatsapp-modal-link] {
     display: block;
   }
 }
