@@ -14,6 +14,7 @@ function init() {
   // Runs immediately after DOM is ready
   initTwostepScalingNavigation();
   initDirectionalButtonHover();
+  initWhatsAppModal();
 
   // Runs only when GSAP + plugins are present
   waitForGsap(() => {
@@ -742,8 +743,3 @@ function initWhatsAppModal() {
     }
   });
 }
-
-// Initialize WhatsApp Modal (Generate QR Code)
-document.addEventListener('DOMContentLoaded', function() {
-  initWhatsAppModal();
-});
