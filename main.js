@@ -725,14 +725,14 @@ function initWhatsAppModal() {
     linkEl.setAttribute('target', '_blank');
   });
   
-  // Toggle open/close the modal
+  // Toggle open/close the modal (capture: true bypasses any stopPropagation in nav handlers)
   document.addEventListener('click', (e) => {
     if (e.target.closest('[data-whatsapp-modal-toggle]')) {
       if (!modal) return;
       const isActive = modal.getAttribute('data-whatsapp-modal-status') === 'active';
       modal.setAttribute('data-whatsapp-modal-status', isActive ? 'not-active' : 'active');
     }
-  });
+  }, true);
 
   // Close on ESC key
   document.addEventListener('keydown', event => {
