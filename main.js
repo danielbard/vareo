@@ -726,12 +726,12 @@ function initWhatsAppModal() {
   });
   
   // Toggle open/close the modal
-  document.querySelectorAll('[data-whatsapp-modal-toggle]').forEach(btn => {
-    btn.addEventListener('click', () => {
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('[data-whatsapp-modal-toggle]')) {
       if (!modal) return;
       const isActive = modal.getAttribute('data-whatsapp-modal-status') === 'active';
       modal.setAttribute('data-whatsapp-modal-status', isActive ? 'not-active' : 'active');
-    });
+    }
   });
 
   // Close on ESC key
