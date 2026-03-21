@@ -1,7 +1,25 @@
 /* -----------------------------
    Button Animation
 ----------------------------- */
- /* WhatsApp Button Hover */
+.btn .btn__text {
+  transition: color 0.7s cubic-bezier(0.625, 0.05, 0, 1);
+}
+
+.btn .btn__circle {
+  transition: transform 0.7s cubic-bezier(0.625, 0.05, 0, 1), 
+              background-color 0.4s cubic-bezier(0.625, 0.05, 0, 1), 
+              border-radius 0.7s cubic-bezier(0.625, 0.05, 0, 1);
+  transform: translate(-50%, -50%) scale(0) rotate(0.001deg);
+  background-color: var(--_primitives---colors--primary-500);
+  border-radius: 50%;
+}
+
+.btn:hover .btn__circle {
+  transform: translate(-50%, -50%) scale(1) rotate(0.001deg);
+  border-radius: 0;
+}
+
+/* WhatsApp Button */
 .whatsapp-modal__btn {
   position: relative;
   overflow: hidden;
@@ -21,7 +39,7 @@
 }
 
 .whatsapp-modal__btn .btn__circle {
-  transition: transform 0.7s cubic-bezier(0.625, 0.05, 0, 1),
+  transition: transform 0.7s cubic-bezier(0.625, 0.05, 0, 1), 
               border-radius 0.7s cubic-bezier(0.625, 0.05, 0, 1);
   transform: translate(-50%, -50%) scale(0) rotate(0.001deg);
   background-color: #23984E;
