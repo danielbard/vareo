@@ -755,3 +755,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.querySelector('.whatsapp_component').style.visibility = 'visible';
+
+const comp = document.querySelector('.whatsapp_component');
+if (comp) comp.style.opacity = '1';
