@@ -15,6 +15,7 @@ function init() {
   initTwostepScalingNavigation();
   initDirectionalButtonHover();
   initWhatsAppModal();
+  initNavImageHover();
 
   // Runs only when GSAP + plugins are present
   waitForGsap(() => {
@@ -67,12 +68,15 @@ function initTwostepScalingNavigation() {
   });
 }
 
+/* -----------------------------
+   Nav Image Hover
+----------------------------- */
 function initNavImageHover() {
   const links = document.querySelectorAll('[data-nav-image]');
   const images = document.querySelectorAll('.twostep-nav__visual-img');
   if (!links.length || !images.length) return;
 
-  // Default image = current page link (w--current)
+  // Default image = current page link (w--current), fallback to first image
   const currentLink = document.querySelector('[data-nav-image].w--current');
   const defaultIndex = currentLink ? currentLink.getAttribute('data-nav-image') : '1';
 
@@ -85,7 +89,7 @@ function initNavImageHover() {
   // Set default image on load
   showImage(defaultIndex);
 
-  // Hover over link → show matching image
+  // Hover over link → show matching image, restore default on leave
   links.forEach(link => {
     if (link.classList.contains('w--current')) return;
 
@@ -720,8 +724,8 @@ function initLineRevealTestimonials() {
    WhatsApp Modal
 ----------------------------- */
 function initWhatsAppModal() {
-
   const modal = document.querySelector('[data-whatsapp-modal]');
+  if (!modal) return;
 
   // QR-code generation
   const url = (modal.getAttribute('data-whatsapp-modal') || '').trim();
@@ -756,37 +760,29 @@ function initWhatsAppModal() {
     linkEl.setAttribute('href', url);
     linkEl.setAttribute('target', '_blank');
   });
-  
-  // Toggle open/close the modal
-document.addEventListener('click', (e) => {
-  if (e.target.closest('[data-whatsapp-modal-toggle]')) {
-    const isActive = modal.getAttribute('data-whatsapp-modal-status') === 'active';
-    modal.setAttribute('data-whatsapp-modal-status', isActive ? 'not-active' : 'active');
-    
-    // Close navigation bar when modal window opens
-    if (!isActive) {
-      const navStatusEl = document.querySelector('[data-nav-status]');
-      if (navStatusEl) navStatusEl.setAttribute('data-nav-status', 'not-active');
+
+  // Toggle open/close the modal - capture phase ensures it fires before nav handlers
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('[data-whatsapp-modal-toggle]')) {
+      const isActive = modal.getAttribute('data-whatsapp-modal-status') === 'active';
+      modal.setAttribute('data-whatsapp-modal-status', isActive ? 'not-active' : 'active');
+
+      // Close navigation when modal opens
+      if (!isActive) {
+        const navStatusEl = document.querySelector('[data-nav-status]');
+        if (navStatusEl) navStatusEl.setAttribute('data-nav-status', 'not-active');
+      }
     }
-  }
-}, true);
+  }, true);
 
   // Close on ESC key
   document.addEventListener('keydown', event => {
     if (event.key === 'Escape' || event.keyCode === 27) {
-      if (modal) {
-        modal.setAttribute('data-whatsapp-modal-status', 'not-active');
-      }
+      modal.setAttribute('data-whatsapp-modal-status', 'not-active');
     }
   });
+
+  // Make component visible after JS init (prevents flash on load)
+  const comp = document.querySelector('.whatsapp_component');
+  if (comp) comp.style.opacity = '1';
 }
-
-// Initialize WhatsApp Modal (Generate QR Code)
-document.addEventListener('DOMContentLoaded', function() {
-  initWhatsAppModal();
-});
-
-document.querySelector('.whatsapp_component').style.visibility = 'visible';
-
-const comp = document.querySelector('.whatsapp_component');
-if (comp) comp.style.opacity = '1';

@@ -59,6 +59,10 @@
   pointer-events: none;
 }
 
+.whatsapp-modal__btn .btn__circle-wrap {
+  pointer-events: none;
+}
+
 .whatsapp-modal__btn .btn__circle {
   background-color: #23984E;
 }
