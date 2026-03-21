@@ -71,6 +71,34 @@
   background-color: #23984E;
 }
 
+/* WhatsApp Button Hover Fix */
+.whatsapp-modal__btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.whatsapp-modal__btn .btn__circle-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.whatsapp-modal__btn .whatsapp-modal__icon-svg,
+.whatsapp-modal__btn .whatsapp-modal__btn-span {
+  position: relative;
+  z-index: 1;
+}
+
+.whatsapp-modal__btn .btn__circle {
+  background-color: #23984E;
+  transform: translate(-50%, -50%) scale(0) rotate(0.001deg);
+}
+
+.whatsapp-modal__btn:hover .btn__circle {
+  transform: translate(-50%, -50%) scale(1) rotate(0.001deg);
+  border-radius: 0;
+}
 
 
 /* -----------------------------
