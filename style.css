@@ -187,3 +187,30 @@
   display: none;
 }
 }
+
+/* WhatsApp Button Hover Effect */
+.whatsapp-modal__btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.whatsapp-modal__btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: #23984E;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0) rotate(0.001deg);
+  transition: transform 0.7s cubic-bezier(0.625, 0.05, 0, 1),
+              border-radius 0.7s cubic-bezier(0.625, 0.05, 0, 1);
+  width: 100%;
+  aspect-ratio: 1;
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .whatsapp-modal__btn:hover::before {
+    transform: translate(-50%, -50%) scale(3) rotate(0.001deg);
+    border-radius: 0;
+  }
+}
