@@ -725,15 +725,13 @@ function initWhatsAppModal() {
     linkEl.setAttribute('target', '_blank');
   });
   
-  // Toggle open/close the modal - Event Delegation (funktioniert für alle Elemente, auch in Nav)
+  // Toggle open/close the modal
 document.addEventListener('click', (e) => {
   if (e.target.closest('[data-whatsapp-modal-toggle]')) {
-    e.stopPropagation();
-    e.stopImmediatePropagation();
     const isActive = modal.getAttribute('data-whatsapp-modal-status') === 'active';
     modal.setAttribute('data-whatsapp-modal-status', isActive ? 'not-active' : 'active');
   }
-}, true); // true = capture phase, feuert VOR Nav-Handlern
+}, true);
 
   // Close on ESC key
   document.addEventListener('keydown', event => {
@@ -744,3 +742,8 @@ document.addEventListener('click', (e) => {
     }
   });
 }
+
+// Initialize WhatsApp Modal (Generate QR Code)
+document.addEventListener('DOMContentLoaded', function() {
+  initWhatsAppModal();
+});

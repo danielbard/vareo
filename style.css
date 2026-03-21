@@ -121,24 +121,6 @@
 /* -----------------------------
    WhatsApp Modal
 ----------------------------- */
-.whatsapp_component {
-  pointer-events: none;
-}
-
-[data-whatsapp-modal-trigger] {
-  pointer-events: auto;
-}
-
-[data-whatsapp-modal] {
-  pointer-events: none;
-  width: 100%;
-  height: 100%;
-}
-
-[data-whatsapp-modal-status="active"] {
-  pointer-events: auto;
-}
-
 [data-whatsapp-modal-qr-canvas]:has(svg) {
   background-color: transparent;
 }
@@ -171,13 +153,7 @@
   visibility: visible;
 }
 
-/* Desktop: toggle visible, link hidden */
-[data-whatsapp-modal-trigger] [data-whatsapp-modal-toggle],
-[data-whatsapp-modal-btn] [data-whatsapp-modal-toggle] {
-  display: block;
-}
-
-[data-whatsapp-modal-trigger] [data-whatsapp-modal-link],
+/* Hide link on non-touch devices */
 [data-whatsapp-modal-btn] [data-whatsapp-modal-link] {
   display: none;
 }
@@ -188,15 +164,11 @@
     display: none;
   }
   
-  /* Hide toggle button on touch devices */
-  [data-whatsapp-modal-trigger] [data-whatsapp-modal-toggle],
-  [data-whatsapp-modal-btn] [data-whatsapp-modal-toggle] {
-    display: none;
-  }
-
-  /* Show link on touch devices */
-  [data-whatsapp-modal-trigger] [data-whatsapp-modal-link],
-  [data-whatsapp-modal-btn] [data-whatsapp-modal-link] {
-    display: block;
-  }
+  /* Desktop: toggle visible, link hidden */
+[data-whatsapp-modal-trigger] [data-whatsapp-modal-toggle] {
+  display: block;
+}
+[data-whatsapp-modal-trigger] [data-whatsapp-modal-link] {
+  display: none;
+}
 }
