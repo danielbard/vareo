@@ -730,6 +730,12 @@ document.addEventListener('click', (e) => {
   if (e.target.closest('[data-whatsapp-modal-toggle]')) {
     const isActive = modal.getAttribute('data-whatsapp-modal-status') === 'active';
     modal.setAttribute('data-whatsapp-modal-status', isActive ? 'not-active' : 'active');
+    
+    // Close navigation bar when modal window opens
+    if (!isActive) {
+      const navStatusEl = document.querySelector('[data-nav-status]');
+      if (navStatusEl) navStatusEl.setAttribute('data-nav-status', 'not-active');
+    }
   }
 }, true);
 
@@ -747,3 +753,5 @@ document.addEventListener('click', (e) => {
 document.addEventListener('DOMContentLoaded', function() {
   initWhatsAppModal();
 });
+
+document.querySelector('.whatsapp_component').style.visibility = 'visible';
