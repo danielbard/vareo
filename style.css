@@ -109,12 +109,13 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  [data-hover]:hover [data-underline-link],
-  [data-underline-link]:hover {
+  [data-hover]:hover [data-underline-link]:not(.w--current),
+  [data-underline-link]:not(.w--current):hover {
     color: var(--_primitives---colors--primary-500);
   }
-  [data-hover]:hover [data-underline-link]::before,
-  [data-underline-link]:hover::before {
+
+  [data-hover]:hover [data-underline-link]:not(.w--current)::before,
+  [data-underline-link]:not(.w--current):hover::before {
     transform-origin: left;
     transform: scaleX(1) rotate(0.001deg);
   }
