@@ -52,6 +52,11 @@
   background-color: var(--_primitives---colors--primary-700);
 }
 
+/* WhatsApp Button */
+.whatsapp-modal__btn {
+  overflow: hidden;
+}
+
 .whatsapp-modal__btn .whatsapp-modal__icon-svg,
 .whatsapp-modal__btn .whatsapp-modal__btn-span {
   position: relative;
