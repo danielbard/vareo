@@ -123,6 +123,7 @@
 ----------------------------- */
 /* Pointer Events Fix */
 .whatsapp_component {
+  display: flex !important;
   pointer-events: none;
 }
 [data-whatsapp-modal-trigger] {
