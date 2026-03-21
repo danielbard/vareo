@@ -67,15 +67,37 @@ function initTwostepScalingNavigation() {
   });
 }
 
-// Nav Image Hover
-document.querySelectorAll('[data-nav-image]').forEach(link => {
-  link.addEventListener('mouseenter', () => {
-    const index = link.getAttribute('data-nav-image');
-    document.querySelectorAll('.twostep-nav__visual-img').forEach(img => {
+function initNavImageHover() {
+  const links = document.querySelectorAll('[data-nav-image]');
+  const images = document.querySelectorAll('.twostep-nav__visual-img');
+  if (!links.length || !images.length) return;
+
+  // Default image = current page link (w--current)
+  const currentLink = document.querySelector('[data-nav-image].w--current');
+  const defaultIndex = currentLink ? currentLink.getAttribute('data-nav-image') : '1';
+
+  function showImage(index) {
+    images.forEach(img => {
       img.style.opacity = img.classList.contains(`is-img-${index}`) ? '1' : '0';
     });
+  }
+
+  // Set default image on load
+  showImage(defaultIndex);
+
+  // Hover over link → show matching image
+  links.forEach(link => {
+    if (link.classList.contains('w--current')) return;
+
+    link.addEventListener('mouseenter', () => {
+      showImage(link.getAttribute('data-nav-image'));
+    });
+
+    link.addEventListener('mouseleave', () => {
+      showImage(defaultIndex);
+    });
   });
-});
+}
 
 
 
