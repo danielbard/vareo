@@ -725,14 +725,15 @@ function initWhatsAppModal() {
     linkEl.setAttribute('target', '_blank');
   });
   
-  // Toggle open/close the modal (capture: true bypasses any stopPropagation in nav handlers)
-  document.addEventListener('click', (e) => {
-    if (e.target.closest('[data-whatsapp-modal-toggle]')) {
-      if (!modal) return;
-      const isActive = modal.getAttribute('data-whatsapp-modal-status') === 'active';
-      modal.setAttribute('data-whatsapp-modal-status', isActive ? 'not-active' : 'active');
-    }
-  }, true);
+  // Toggle open/close the modal - Event Delegation (funktioniert für alle Elemente, auch in Nav)
+document.addEventListener('click', (e) => {
+  if (e.target.closest('[data-whatsapp-modal-toggle]')) {
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+    const isActive = modal.getAttribute('data-whatsapp-modal-status') === 'active';
+    modal.setAttribute('data-whatsapp-modal-status', isActive ? 'not-active' : 'active');
+  }
+}, true); // true = capture phase, feuert VOR Nav-Handlern
 
   // Close on ESC key
   document.addEventListener('keydown', event => {
