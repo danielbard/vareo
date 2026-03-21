@@ -67,6 +67,18 @@ function initTwostepScalingNavigation() {
   });
 }
 
+// Nav Image Hover
+document.querySelectorAll('[data-nav-image]').forEach(link => {
+  link.addEventListener('mouseenter', () => {
+    const index = link.getAttribute('data-nav-image');
+    document.querySelectorAll('.twostep-nav__visual-img').forEach(img => {
+      img.style.opacity = img.classList.contains(`is-img-${index}`) ? '1' : '0';
+    });
+  });
+});
+
+
+
 /* -----------------------------
    Directional Button Hover
 ----------------------------- */
@@ -107,8 +119,6 @@ function initDirectionalButtonHover() {
     }
   }
 }
-
-
 
 /* -----------------------------
    Variable Font Weight Hover (GSAP + SplitText)
