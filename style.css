@@ -144,6 +144,11 @@
   pointer-events: auto;
 }
 
+/* Prevents btn__circle-wrap from blocking clicks */
+.whatsapp-modal__btn .btn__circle-wrap {
+  pointer-events: none;
+}
+
 [data-whatsapp-modal-qr-canvas]:has(svg) {
   background-color: transparent;
 }
