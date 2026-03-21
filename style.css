@@ -56,6 +56,11 @@
   background-color: var(--_primitives---colors--primary-700);
 }
 
+/* WhatsApp Button Circle Color */
+.whatsapp-modal__btn .btn__circle {
+  background-color: #23984E;
+}
+
 /* -----------------------------
    Underline Link Animation
 ----------------------------- */
