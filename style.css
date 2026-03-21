@@ -121,6 +121,20 @@
 /* -----------------------------
    WhatsApp Modal
 ----------------------------- */
+/* Pointer Events Fix */
+.whatsapp_component {
+  pointer-events: none;
+}
+[data-whatsapp-modal-trigger] {
+  pointer-events: auto;
+}
+[data-whatsapp-modal] {
+  pointer-events: none;
+}
+[data-whatsapp-modal-status="active"] {
+  pointer-events: auto;
+}
+
 [data-whatsapp-modal-qr-canvas]:has(svg) {
   background-color: transparent;
 }
