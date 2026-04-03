@@ -795,7 +795,7 @@ gsap.registerPlugin(Draggable, InertiaPlugin, Physics2DPlugin);
 
 function initConfettiExplosion(x, y) {
   const dotCount = gsap.utils.random(10, 20, 1);
-  const colors   = ["#000B1F ", "#E35205", "#857566", "#802E0E", "#2E2924", "#EC5B19"];
+  const colors   = ["#FEEADC ", "#F79E6E", "#E35205", "#CB5425", "#A6441D", "#4E1804"];
   const container = document.querySelector('[data-minigame-init]');
 
   for (let i = 0; i < dotCount; i++) {
