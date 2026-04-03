@@ -208,3 +208,33 @@
 .twostep-nav__visual-img {
   transition: opacity 0.8s cubic-bezier(0.625, 0.05, 0, 1);
 }
+
+/* -----------------------------
+   404 Error Minigame
+----------------------------- */
+
+.minigame__pull.is--drag .minigame__rocket-top {
+  display: block;
+}
+
+.minigame__score-screen {
+  transition: 0.4s cubic-bezier(0.625, 0.05, 0, 1);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(32px) rotate(0.001deg) scale(0.9);
+}
+
+[data-minigame-status="finished"] .minigame__score-screen {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0px) rotate(0.001deg) scale(1);
+}
+
+.minigame__controls {
+  transition: 0.4s cubic-bezier(0.625, 0.05, 0, 1);
+}
+
+.minigame:has([data-minigame-status="finished"]) .minigame__controls {
+  opacity: 0;
+  visibility: hidden;
+}
