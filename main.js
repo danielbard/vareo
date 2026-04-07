@@ -792,9 +792,11 @@ function initWhatsAppModal() {
    404 Error Minigame
 ----------------------------- */
 function initConfettiExplosion(x, y) {
+  const container = document.querySelector('[data-minigame-init]');
+  if (!container) return;
+
   const dotCount = gsap.utils.random(10, 20, 1);
   const colors   = ["#FEEADC ", "#F79E6E", "#E35205", "#CB5425", "#A6441D", "#4E1804"];
-  const container = document.querySelector('[data-minigame-init]');
 
   for (let i = 0; i < dotCount; i++) {
     const dot = document.createElement("div");
@@ -839,7 +841,9 @@ function init404Minigame() {
     flyRotateDuration:   1
   };
 
-  const container     = document.querySelector('[data-minigame-init]');
+  const container = document.querySelector('[data-minigame-init]');
+  if (!container) return;
+
   const pull          = container.querySelector('[data-minigame-pull]');
   const rocket        = container.querySelector('[data-minigame-rocket]');
   const line          = container.querySelector('[data-minigame-line]');
