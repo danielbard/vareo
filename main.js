@@ -21,7 +21,7 @@ function init() {
   waitForGsap(() => {
     // Register once, when we know gsap exists
     if (window.gsap?.registerPlugin) {
-      gsap.registerPlugin(ScrollTrigger);
+      gsap.registerPlugin(ScrollTrigger, Draggable, InertiaPlugin, Physics2DPlugin);
     }
 
     initVariableFontWeightHover();
@@ -791,8 +791,6 @@ function initWhatsAppModal() {
 /* -----------------------------
    404 Error Minigame
 ----------------------------- */
-gsap.registerPlugin(Draggable, InertiaPlugin, Physics2DPlugin);
-
 function initConfettiExplosion(x, y) {
   const dotCount = gsap.utils.random(10, 20, 1);
   const colors   = ["#FEEADC ", "#F79E6E", "#E35205", "#CB5425", "#A6441D", "#4E1804"];
