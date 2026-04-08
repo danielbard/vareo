@@ -21,7 +21,7 @@ function init() {
   waitForGsap(() => {
     // Register once, when we know gsap exists
     if (window.gsap?.registerPlugin) {
-      gsap.registerPlugin(ScrollTrigger, Draggable, InertiaPlugin, Physics2DPlugin);
+      gsap.registerPlugin(ScrollTrigger, SplitText, Draggable, InertiaPlugin, Physics2DPlugin);
     }
 
     initVariableFontWeightHover();
@@ -30,6 +30,7 @@ function init() {
     document.fonts.ready.then(() => {
       initHighlightMarkerTextReveal();
       initLineRevealTestimonials();
+      initHighlightText();
     });
   });
 }
@@ -717,7 +718,45 @@ function initLineRevealTestimonials() {
         pauseAutoplay();
       },
     });
-    
+
+  });
+}
+
+/* -----------------------------
+   Highlight Text on Scroll (GSAP + SplitText)
+----------------------------- */
+function initHighlightText() {
+  const headings = document.querySelectorAll("[data-highlight-text]");
+  if (!headings.length) return;
+
+  headings.forEach((heading) => {
+    const scrollStart  = heading.getAttribute("data-highlight-scroll-start")  || "top 90%";
+    const scrollEnd    = heading.getAttribute("data-highlight-scroll-end")    || "center 40%";
+    const fadedValue   = heading.getAttribute("data-highlight-fade")          || 0.2;
+    const staggerValue = heading.getAttribute("data-highlight-stagger")       || 0.1;
+
+    new SplitText(heading, {
+      type: "words, chars",
+      autoSplit: true,
+      onSplit(self) {
+        const ctx = gsap.context(() => {
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              scrub: true,
+              trigger: heading,
+              start: scrollStart,
+              end: scrollEnd,
+            },
+          });
+          tl.from(self.chars, {
+            autoAlpha: fadedValue,
+            stagger: staggerValue,
+            ease: "linear",
+          });
+        });
+        return ctx;
+      },
+    });
   });
 }
 
