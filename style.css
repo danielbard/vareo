@@ -238,3 +238,11 @@
   opacity: 0;
   visibility: hidden;
 }
+
+/* -----------------------------
+   Highlight Text on Scroll
+----------------------------- */
+[data-highlight-text] {
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
