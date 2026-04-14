@@ -1156,7 +1156,7 @@ window.addEventListener("blur", () => {
 });
 
 /* -----------------------------
-   Fathom – track link click
+   Fathom – Analytics
 ----------------------------- */
 window.addEventListener('load', (event) => {
   document.getElementById('contact-header-link').addEventListener('click', () => {
