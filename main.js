@@ -1154,3 +1154,12 @@ window.addEventListener("focus", () => {
 window.addEventListener("blur", () => {
   document.title = documentTitleOnBlur;
 });
+
+/* -----------------------------
+   Fathom – track link click
+----------------------------- */
+window.addEventListener('load', (event) => {
+  document.getElementById('contact-header-link').addEventListener('click', () => {
+    fathom.trackEvent('header contact click');
+  });
+});
