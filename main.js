@@ -1144,7 +1144,7 @@ function init404Minigame() {
    Change Page Title on Leave
 ----------------------------- */
 const documentTitleStore = document.title;
-const documentTitleOnBlur = "Komm zurück ❤️"; // Define your custom title here
+const documentTitleOnBlur = "komm zurück ❤️"; 
 
 // Set original title if user is on the site
 window.addEventListener("focus", () => {
